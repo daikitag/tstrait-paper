@@ -383,25 +383,26 @@ of \texttt{AlphaSimR}~\citep{gaynor2021} and
 
 \subsection{Performance}
 \texttt{Tstrait} is very efficient, and can be applied to datasets at the
-largest scales.
-Supplementary Fig~\ref{fig:time}A shows how trait simulation time scales
+largest scales on standard computers.
+Supplementary Fig~\ref{fig:time} shows how trait simulation time scales
 with number of individuals on human-like coalescent simulations
 generated using~\texttt{stdpopsim}~\citep{adrion2020}.
-For each simulated ARG, we simulate a trait with 1000 causal sites
-and report the mean CPU time over 10 independent replicates.
-Supplementary Fig~\ref{fig:time}B shows that RAM usage is very
-modest. To emphasise scalability, we also
+For each ARG, we simulate a trait with 1000 causal sites
+and report the mean CPU (Intel(R) Core(TM) i9-11900H)
+time over 10 independent replicates.
+To emphasise scalability, we also
 applied \texttt{tstrait} to the simulations of 1.4 million
 French-Canadians discussed in the introduction.
 % TODO redo this for 100 causal sites @daiki.
-It took 6 seconds and XXX GB of RAM to
-simulate a trait with 100 causal sites.
+It took 6 seconds to simulate a trait with 100 causal sites.
 % Is this worth the space? We should cite 1KG project also really.
 Finally, to demonstrate that \texttt{tstrait} can also be applied
 to ARGs inferred from real data, we simulated a trait with 100 causal
 sites for an ARG estimated from 1000 Genomes project
 data~\citep{kelleher2019} which has YYY samples
-and ZZZ variant sites. This took 0.X seconds and Y GB of RAM.
+and ZZZ variant sites. This took 0.X seconds.
+Memory requirements for \texttt{tstrait} are modest: all of the
+above experiments were performed on a laptop computer with 16GB of RAM.
 
 \section{Conclusion}
 There is substantial interest in using inferred ARGs to improve
