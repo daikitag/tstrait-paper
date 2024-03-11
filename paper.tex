@@ -274,10 +274,10 @@ Each trait is associated with one or more causal sites
 (positions on the genome), and at each causal site there is a causal allele
 (i.e.\ a particular nucleotide) associated with an effect size $\beta$.
 For each causal site, an effect size is drawn from a distribution
-and optionally multiplied by $\left(2p(1-p)\right)^\alpha$,
+and optionally multiplied by $\left(2p(1-p)\right)^{\alpha/2}$,
 where $p$ is the frequency of the causal allele and $\alpha$
 is a parameter describing the strength of
-frequency dependence~\citep{speed2017}.
+frequency dependence~\citep{speed2012}.
 At a particular causal site, every node in the local tree that inherits
 the causal allele at that site is said to have a ``genetic value'' of $\beta$.
 % NOTE removing this for space - it keeps this section on one page.
@@ -392,16 +392,20 @@ For each ARG, we simulate a trait with 1000 causal sites
 and report the mean CPU (Intel(R) Core(TM) i9-11900H)
 time over 10 independent replicates.
 To emphasise scalability, we also
-applied \texttt{tstrait} to the simulations of 1.4 million
+% TODO check that the numbers align here, we may need to be 
+% less specific to avoid confusing readers or having to
+% explain technical details.
+applied \texttt{tstrait} to the simulations of 2.7 million
 French-Canadians discussed in the introduction.
+% tstrait simulates phenotypes for 2.7 million individuals in the French Canadian dataset, as ancestors are denoted as individuals in the dataset.
 % TODO redo this for 100 causal sites @daiki.
-It took 6 seconds to simulate a trait with 100 causal sites.
+It took 80.69 seconds to simulate a trait with 100 causal sites.
 % Is this worth the space? We should cite 1KG project also really.
 Finally, to demonstrate that \texttt{tstrait} can also be applied
 to ARGs inferred from real data, we simulated a trait with 100 causal
 sites for an ARG estimated from 1000 Genomes project
-data~\citep{kelleher2019} which has YYY samples
-and ZZZ variant sites. This took 0.X seconds.
+data~\citep{kelleher2019} which has 2,504 samples
+and 1,685,401 variant sites. This took 5.40 seconds.
 Memory requirements for \texttt{tstrait} are modest: all of the
 above experiments were performed on a laptop computer with 16GB of RAM.
 
@@ -458,7 +462,7 @@ The times reported are the total CPU time required to simulate quantitative
 traits on an Intel(R) Core(TM) i9-11900H CPU and 16 GB of RAM. The trait model
 is a normal distribution with $\mu=0$, $\sigma^2=1$, $h^2=0.3$, and
 $\alpha=-1$. (A) CPU time with increasing number of individuals
-based on ARGs simulated using \texttt{stdpopsim} with the [MODEL ID]
+based on ARGs simulated using \texttt{stdpopsim} with the HomSap
 demographic mode. For each replicate we simulate
 one quantitative trait with 1000 causal sites.
 (B) CPU time with increasing number of causal sites on two large ARGs.
@@ -471,4 +475,16 @@ Genomes Project is downloaded from \url{https://zenodo.org/record/3051855}.
 Chromosome 9 is selected for both datasets.}\label{fig:time}
 \end{figure*}
 
+\begin{figure*}[t]%
+\centering
+% FIXME get the sizes right here and in the notebook where we're generating
+% the figure so we don't have to scale here.
+\includegraphics[width=213pt]{figures/time-scaling.pdf}
+\caption{\textbf{Time taken to simulate quantitative traits.} Each point
+represents the mean time for 10 independent runs under different random seeds with 95\% confidence intervals plotted.
+The times reported are the total CPU time required to simulate quantitative
+traits on an Intel(R) Core(TM) i9-11900H CPU and 16 GB of RAM. The trait model
+is a normal distribution with $\mu=0$, $\sigma^2=1$, $h^2=0.3$, and
+$\alpha=0$. \texttt{tstrait} is used to simulate quantitative traits from ARGs simulated using \texttt{stdpopsim} with the HomSap demographic mode. For each replicate we simulate one quantitative trait with 1000 causal sites. We have compared \texttt{tstrait} against the quantitative trait simulation framework that is based on \texttt{tskit} functionalities. The comparison codes are adapted from \citep{martin2017}, and they are modified based on functionalities offered in \texttt{tskit} version 0.5.6 to speed up the computational efficiency.}\label{fig:time}
+\end{figure*}
 \end{document}
