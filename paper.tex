@@ -455,31 +455,7 @@ EPSRC (research grant EP/X024881/1).
 \centering
 % FIXME get the sizes right here and in the notebook where we're generating
 % the figure so we don't have to scale here.
-\includegraphics[width=213pt]{figures/time-scaling.pdf}
-\caption{\textbf{Time taken to simulate quantitative traits.} Each point
-represents the mean time for 10 independent runs under different random seeds.
-The times reported are the total CPU time required to simulate quantitative
-traits on an Intel(R) Core(TM) i9-11900H CPU and 16 GB of RAM. The trait model
-is a normal distribution with $\mu=0$, $\sigma^2=1$, $h^2=0.3$, and
-$\alpha=-1$. (A) CPU time with increasing number of individuals
-based on ARGs simulated using \texttt{stdpopsim} with the HomSap
-demographic mode. For each replicate we simulate
-one quantitative trait with 1000 causal sites.
-(B) CPU time with increasing number of causal sites on two large ARGs.
-\texttt{tstrait} is used to simulate quantitative traits from
-the simulated French Canadian dataset \citep{anderson2023} and the inferred
-tree sequence dataset of the 1000 Genomes Project \citep{kelleher2019} with
-varying number of causal sites. The French Canadian dataset is downloaded from
-\url{https://zenodo.org/record/6839683}, and the inferred ARG from the 1000
-Genomes Project is downloaded from \url{https://zenodo.org/record/3051855}.
-Chromosome 9 is selected for both datasets.}\label{fig:time}
-\end{figure*}
-
-\begin{figure*}[t]%
-\centering
-% FIXME get the sizes right here and in the notebook where we're generating
-% the figure so we don't have to scale here.
-\includegraphics[width=213pt]{figures/time-scaling.pdf}
+\includegraphics[width=\columnwidth]{figures/computational-time-code/stdpopsim-time.pdf}
 \caption{\textbf{Time taken to simulate quantitative traits.} Each point
 represents the mean time for 10 independent runs under different random seeds with 95\% confidence intervals plotted.
 The times reported are the total CPU time required to simulate quantitative
