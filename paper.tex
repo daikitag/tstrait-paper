@@ -198,7 +198,7 @@ in the ``succinct tree sequence'' encoding~\citep{wong2023general}
 and \texttt{tskit} library~\citep{ralph2020}.
 For example, a highly realistic simulation
 of chromosome 9 for 1.4 million
-French-Canadian individuals~\citep{anderson2023}
+French-Canadian samples~\citep{anderson2023}
 requires around 550GB of storage space in gzip-compressed
 VCF~\citep{danecek2011}.
 At 1.36GB the original simulated ARG
@@ -260,7 +260,7 @@ to nodes \textsf{a} and \textsf{b}). Internal nodes in the tree are associated
 with the null individual, $-1$. Here, the trait's causal allele is T
 with an effect size $\beta=0.05$. Each node in the tree has an associated
 genetic value, and the overall genetic value for an individual is the
-sum of the genetic values of their corresponding nodes. 
+sum of the genetic values of their corresponding nodes.
 The final phenotype
 for each individual is the sum of the genetic value and
 simulated environmental noise.
@@ -296,7 +296,7 @@ pedigree, where some internal nodes would be associated
 with individuals.
 In the example of
 Fig.~\ref{fig:tree-illustration}, T is chosen as the causal
-allele with $\beta=0.05$, 
+allele with $\beta=0.05$,
 so all nodes descending from \textsf{i}
 have genetic value $0.05$, except \textsf{e} which
 has zero because of the back-mutation to A.
@@ -375,9 +375,9 @@ interoperability.
 are either peformed using standard array-oriented
 approaches~\citep{numpy} or accelerated
 using the \texttt{numba} JIT compiler~\citep{numba}.
-The \texttt{tstrait} codebase includes an extensive suite of unit tests,
+The \texttt{tstrait} codebase includes a suite of unit tests,
 which are automatically run as part of the development process. The
-output of \texttt{tstrait} has been extensively validated against
+output of \texttt{tstrait} has been validated against
 theoretical expectations, as well as the output
 of \texttt{AlphaSimR}~\citep{gaynor2021} and
 \texttt{simplePHENOTYPES}~\citep{fernandes2020}.
@@ -388,18 +388,14 @@ largest scales on standard computers.
 Supplementary Fig~\ref{fig:time} shows how trait simulation time scales
 with number of individuals on human-like coalescent simulations
 generated using~\texttt{stdpopsim}~\citep{adrion2020}.
-For each ARG, we simulate a trait with 1000 causal sites
-and report the mean CPU (Intel(R) Core(TM) i9-11900H)
-time over 10 independent replicates.
 To emphasise scalability, we also
-% TODO check that the numbers align here, we may need to be 
+% TODO check that the numbers align here, we may need to be
 % less specific to avoid confusing readers or having to
 % explain technical details.
-applied \texttt{tstrait} to the simulations of 2.7 million
-French-Canadians discussed in the introduction.
-% tstrait simulates phenotypes for 2.7 million individuals in the French Canadian dataset, as ancestors are denoted as individuals in the dataset.
-% TODO redo this for 100 causal sites @daiki.
-It took 80.69 seconds to simulate a trait with 100 causal sites.
+applied \texttt{tstrait} to the large
+French-Canadian simulations discussed in the introduction.
+It took 80.69 seconds to simulate a trait with 100 causal sites
+for all 2.7 million pedigree individuals.
 % Is this worth the space? We should cite 1KG project also really.
 Finally, to demonstrate that \texttt{tstrait} can also be applied
 to ARGs inferred from real data, we simulated a trait with 100 causal
@@ -451,16 +447,20 @@ EPSRC (research grant EP/X024881/1).
 \setcounter{table}{0}
 \section{Supplementary Figures}
 
-\begin{figure*}[t]%
+\begin{figure}[t]%
 \centering
 % FIXME get the sizes right here and in the notebook where we're generating
 % the figure so we don't have to scale here.
 \includegraphics[width=\columnwidth]{figures/computational-time-code/stdpopsim-time.pdf}
-\caption{\textbf{Time taken to simulate quantitative traits.} Each point
-represents the mean time for 10 independent runs under different random seeds with 95\% confidence intervals plotted.
-The times reported are the total CPU time required to simulate quantitative
-traits on an Intel(R) Core(TM) i9-11900H CPU and 16 GB of RAM. The trait model
-is a normal distribution with $\mu=0$, $\sigma^2=1$, $h^2=0.3$, and
-$\alpha=0$. \texttt{tstrait} is used to simulate quantitative traits from ARGs simulated using \texttt{stdpopsim} with the generic piecewise constant size model in Homo Sapiens catalog. For each replicate we simulate one quantitative trait with 1000 causal sites. We have compared \texttt{tstrait} against the quantitative trait simulation framework that is based on \texttt{tskit} functionalities. The comparison codes are adapted from \citep{martin2017}, and they are modified based on functionalities offered in \texttt{tskit} version 0.5.6 to speed up the computational efficiency.}\label{fig:time}
-\end{figure*}
+\caption{Time taken to simulate quantitative traits with increasing
+sample size. For each sample size, we simulated an ARG under human-like
+parameters using the default HomSap demographic model in \texttt{stdpopsim}.
+Each point represents the mean time for 10 independent runs of \texttt{tstrait}
+for a particular ARG. The times reported are the total CPU
+time required to simulate a quantitative trait with 1000 causal sites,
+on an Intel(R) Core(TM) i9-11900H CPU and 16 GB of RAM.
+The trait model is a normal distribution with $\mu=0$,
+$\sigma^2=1$, $h^2=0.3$, and $\alpha=0$.
+}\label{fig:time}
+\end{figure}
 \end{document}
