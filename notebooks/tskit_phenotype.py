@@ -2,6 +2,7 @@
 # The simulation framework is described in Martin et al. (2017), https://www.sciencedirect.com/science/article/pii/S0002929717301076
 import numpy as np
 from dataclasses import dataclass
+import tskit
 
 @dataclass
 class Result:
@@ -12,7 +13,7 @@ class Result:
     allele_frequency: np.ndarray    
 
 
-def matrix(ts, h2, ncausal, random_seed):
+def sim_phenotype_tskit(ts, h2, ncausal, random_seed):
     
     rng = np.random.default_rng(random_seed)
     
@@ -26,17 +27,18 @@ def matrix(ts, h2, ncausal, random_seed):
 
     prs_haps = np.zeros(nhaps) #score for each haplotype
     i = 0
-    for variant in ts.variants():
-        if variant.index in causal_site_index:
-            sim_effect_size = np.random.normal(loc=0,scale=h2/ncausal)
-            effect_size[i] = sim_effect_size
-            causal_allele_index = rng.integers(low=1, high=len(variant.alleles))
-            allele = variant.alleles[causal_allele_index]
-            causal_allele[i] = allele
-            genotype = np.array([1 if i == causal_allele_index else 0 for i in variant.genotypes])
-            prs_haps += genotype * sim_effect_size
-            allele_freq[i] = np.sum(genotype) / len(genotype)
-            i += 1
+    variant = tskit.Variant(ts)
+    for causal_site in causal_site_index:
+        variant.decode(causal_site)
+        sim_effect_size = np.random.normal(loc=0,scale=h2/ncausal)
+        effect_size[i] = sim_effect_size
+        causal_allele_index = rng.integers(low=1, high=len(variant.alleles))
+        allele = variant.alleles[causal_allele_index]
+        causal_allele[i] = allele
+        genotype = np.array([1 if i == causal_allele_index else 0 for i in variant.genotypes])
+        prs_haps += genotype * sim_effect_size
+        allele_freq[i] = np.sum(genotype) / len(genotype)
+        i += 1
 
     env_effect = rng.normal(loc=0,scale=1-h2, size=nhaps)
     prs_norm = (prs_haps - np.mean(prs_haps)) / np.std(prs_haps)

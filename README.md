@@ -2,4 +2,7 @@
 
 This repository includes all the relevant files and codes for the tstrait paper.
 
-The codes for generating the figure in the paper is located in `computational-time` folder with the instructions for running the code.
+List of directories:
+
+- `notebooks`: Includes all codes for generating figures and computational time in the paper.
+- `figures`: Includes all figures inside the paper.

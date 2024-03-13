@@ -5,7 +5,7 @@ __pycache__/
 .ipynb_checkpoints
 
 # Saved tree sequence data
-computational-time-code/data
+notebooks/data
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
