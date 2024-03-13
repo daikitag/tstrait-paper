@@ -52,7 +52,7 @@
 % \journaltitle{Bioinformatics}
 \journaltitle{Preprint}
 % \DOI{DOI HERE}
-\copyrightyear{2023}
+\copyrightyear{2024}
 % \pubyear{2019}
 % \access{Advance Access Publication Date: Day Month Year}
 \appnotes{Paper}
@@ -173,11 +173,11 @@ An important property of these population genetic simulation methods is that
 they output ancestral recombination graphs (ARGs)
 rather than sample genotypes.
 ARGs encode the interwoven paths
-of genetic inheritance arising from
+of genetic inheritance caused by
 % Explanation of citations: people might get offended if we don't cite
 % Griffiths when first mentioning the ARG, but Hudson has just as
 % much to do with the actual definition that we use in Wong 2023.
-recombination~\citep{hudson1983properties,griffiths1997ancestral,wong2023general},
+recombination \citep{hudson1983properties,griffiths1997ancestral,wong2023general},
 and contain rich detail about ancestral processes.
 Recent breakthroughs in inferrence methods have made it possible
 to estimate ARGs at biobank scale~\citep{kelleher2019,zhang2023},
@@ -324,7 +324,7 @@ import tstrait as tst
 model = tst.trait_model('normal', mean=0, var=1)
 result = tst.sim_phenotype(arg, model)
 \end{lstlisting}
-We first create \texttt{model}, which represents the distribution
+We first create \texttt{model}, representing the distribution
 from which effect sizes are drawn. Five commonly used
 univariate distributions are supported, along with the
 multivariate normal distribution to model pleiotropic traits.
@@ -343,7 +343,7 @@ two Pandas dataframes~\citep{mckinney2010data}: one describing the simulated
 effect sizes and the other describing the genetic values,
 environmental noise and phenotypes for each individual.
 The simulation results can then be efficiently and conveniently
-processed using familiar Python data science tools.
+processed using standard Python data science tools.
 
 As well as this convenient single-function interface,
 \texttt{tstrait} provides modular building blocks for power-users
