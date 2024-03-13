@@ -439,7 +439,7 @@ EPSRC (research grant EP/X024881/1).
 \bibliographystyle{abbrvnat}
 \bibliography{paper}
 
-\clearpage
+%\clearpage
 
 \renewcommand\thefigure{S\arabic{figure}}
 \setcounter{figure}{0}
@@ -447,11 +447,11 @@ EPSRC (research grant EP/X024881/1).
 \setcounter{table}{0}
 \section{Supplementary Figures}
 
-\begin{figure}[t]%
+\begin{figure}[h]%
 \centering
 % FIXME get the sizes right here and in the notebook where we're generating
 % the figure so we don't have to scale here.
-\includegraphics[width=\columnwidth]{figures/computational-time-code/stdpopsim-time.pdf}
+\includegraphics[width=\columnwidth]{figures/stdpopsim-time.pdf}
 \caption{Time taken to simulate quantitative traits with increasing
 sample size. For each sample size, we simulated an ARG under human-like
 parameters using the default HomSap demographic model in \texttt{stdpopsim}.
