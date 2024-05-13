@@ -1,0 +1,151 @@
+% LaTeX rebuttal letter example.
+%
+% Copyright 2019 Friedemann Zenke, fzenke.net
+%
+% Based on examples by Dirk Eddelbuettel, Fran and others from
+% https://tex.stackexchange.com/questions/2317/latex-style-or-macro-for-detailed-response-to-referee-report
+%
+% Licensed under cc by-sa 3.0 with attribution required.
+
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{lipsum} % to generate some filler text
+\usepackage{fullpage}
+
+% import Eq and Section references from the main manuscript where needed
+% \usepackage{xr}
+% \externaldocument{manuscript}
+
+% package needed for optional arguments
+\usepackage{xifthen}
+% define counters for reviewers and their points
+\newcounter{reviewer}
+\setcounter{reviewer}{0}
+\newcounter{point}[reviewer]
+\setcounter{point}{0}
+
+% This refines the format of how the reviewer/point reference will appear.
+\renewcommand{\thepoint}{\thereviewer.\arabic{point}}
+
+% command declarations for reviewer points and our responses
+\newcommand{\reviewersection}{\stepcounter{reviewer} \bigskip \hrule
+                  \section*{Reviewer \thereviewer}}
+
+\newenvironment{point}
+   {\refstepcounter{point} \bigskip \noindent {\textbf{Reviewer~Point~\thepoint} } ---\ }
+   {\par }
+
+\newcommand{\shortpoint}[1]{\refstepcounter{point}  \bigskip \noindent
+    {\textbf{Reviewer~Point~\thepoint} } ---~#1\par }
+
+\newenvironment{reply}
+   {\medskip \noindent \begin{sf}\textbf{Reply}:\  }
+   {\medskip \end{sf}}
+
+\newcommand{\shortreply}[2][]{\medskip \noindent \begin{sf}\textbf{Reply}:\  #2
+    \ifthenelse{\equal{#1}{}}{}{ \hfill \footnotesize (#1)}%
+    \medskip \end{sf}}
+
+\begin{document}
+
+\section*{Response to the editor}
+% General intro text goes here
+Thank you for considering this manuscript for publication, and we are extremely excited to hear that this manuscript is acceptable for publication in Bioinformatics subject to the suggested revisions. We are glad that
+Reviewers 1 and 2 share our enthusiasm for the tstrait package!
+\subsection*{Associate Editor}
+% We address your specific comments below:
+% % \reviewersection
+
+\textit{
+The reviewers are both very positive on your manuscript, rating it highly and seeing no significant problems in need of revision.  Each has a couple of questions for you, and although the reviewers may consider these discretionary I will pass them on to you with a request for a Minor Revision to give you a chance to revise in response to these points before we make a final decision. Given the reviews, I think it is unlikely we will need a second round of review if you can provide reasonable answers to the questions raised.}
+
+\begin{reply}
+    Thank you for the helpful feedback. We are grateful for the reviewers 
+    comments and have updated the manuscript to clarify.
+\end{reply}
+
+\section*{Response to the reviewers}
+% General intro text goes here
+We thank the reviewers for their close reading of our manuscript and
+insightful comments. In the following we address the points raised
+in turn.
+
+% Let's start point-by-point with Reviewer 1
+\reviewersection
+
+% Point one description
+\begin{point}
+This applications note describes tstrait, which uses ARGs as a basis for simulating traits. This is important because simulated genotypic data use ARGs to quantify what is happening in the genome across many generations.
+
+I thought this paper was very well-written. In particular, Figure 1 is very effective at presenting how traits are simulated. I also thought that the motivation behind the need for an ARG-based trait simulation package was strongly justified. If/when ARGs become more widely used, I think it will be important to have simulation packages like this.
+\end{point}
+
+\begin{reply}
+    Thank you for the summary. We are delighted to hear your positive feedback.
+\end{reply}
+
+\begin{point}
+    1) Can dominance and/or epistatic effects be simulated under the framework of, e.g., Figure 1?
+\end{point}
+
+\begin{reply}
+    Both dominance and epistasis can be simulated under the simulation framework that is described in Figure 1, as it is possible to extract the genetic value of each node at every site. We have included this in the revised manuscript, and we are planning to incorporate these features in the future release.
+\end{reply}
+
+\begin{point}
+    2) I appreciate the effort to put in the modular framework. With this said, how easy is it to take the simulated traits from tstrait and migrate the files over to R to run, e.g., GWAS and/or genomic prediction?
+\end{point}
+
+\begin{reply}
+    All simulation results in tstrait are provided as pandas dataframe. Users can simply save the pandas dataframe as a CSV or similar file and load it into other programs. We have added this part in the revised manuscript to emphasize the point.
+\end{reply}
+
+\reviewersection
+
+% Point one description
+\begin{point}
+Tagami et al. present an interesting Python library that can efficiently simulate quantitative traits from ancestral recombination graphs. I like how the authors illustrate the efficiency of this library when considering the size of typical biobank data.
+\end{point}
+
+\begin{reply}
+    Thank you for your kind comments. We are delighted to hear your positive feedback on this new Python library.
+\end{reply}
+
+\begin{point}
+    - I was unable to locate the comparisons against AlphaSimR and simplePHENOTYPES.
+\end{point}
+
+\begin{reply}
+    The comparisons are located in verification.py file in the tstrait GitHub repository 
+    to ensure that these statistical tests are done as part of the normal development 
+    of the package. As a result, however, they are not very easy to find. We have 
+    added a short supplemental note describing these validations, and describing
+    where they can be found in the tstrait source code.
+\end{reply}
+
+\begin{point}
+    Although I appreciate the argument of efficiency, it seems a little exaggerated since for some of those packages (e.g. simplePHENOTYPES), the simulation step only utilizes the QTNs. I.e., although the whole file would have 140 TB, this file would not be needed in its entirety. For a trait with 100 QTNs, only 100 SNPs would be needed for the simulation step.
+\end{point}
+
+\begin{reply}
+    Although it is correct that methods such as simplePHENOTYPES only use a subset of 
+    the genotype matrix, they must still read these large VCFs, which is itself a 
+    major undertaking. In practise they read entire VCF into memory.
+    For example, simplePHENOTYPES uses the SNPRelate package to first 
+    convert the input VCF to GDS format, and then use the \texttt{snpgdsGetGeno}
+    function to obtain an explicit genotype matrix in memory for the entire 
+    dataset. The sites of interest are then extracted from this large matrix 
+    for further analysis. While this could be done more efficiently, 
+    any operations on a multi-terabyte VCF are cumbersome and would require
+    substantial engineering effort.
+\end{reply}
+
+\begin{point}
+    Another positive aspect is that the documentation on GitHub is well documented.
+\end{point}
+
+\begin{reply}
+    Thank you for your feedback, and we agree that documentation is very important.
+\end{reply}
+
+\end{document}

@@ -310,6 +310,8 @@ This noise is simulated from a normal distribution with mean zero
 and variance of $V_G(1-h^2)/{h^2}$,
 where $V_G$ is the variance of the individual genetic values
 and $h^2$ is the narrow-sense heritability provided as input by the user.
+Dominance and epistasis are straightforward extensions to this
+model, which we plan to include in future versions of \texttt{tstrait}.
 
 \subsection{Interface}
 \texttt{Tstrait} is a Python library, building on the \texttt{tskit}
@@ -343,7 +345,8 @@ two Pandas dataframes~\citep{mckinney2010data}: one describing the simulated
 effect sizes and the other describing the genetic values,
 environmental noise and phenotypes for each individual.
 The simulation results can then be efficiently and conveniently
-processed using standard Python data science tools.
+processed using standard Python data science tools, or exported
+to (e.g.) CSV for broad compatibility.
 
 As well as this convenient single-function interface,
 \texttt{tstrait} provides modular building blocks for power-users
@@ -441,26 +444,4 @@ EPSRC (research grant EP/X024881/1).
 
 %\clearpage
 
-\renewcommand\thefigure{S\arabic{figure}}
-\setcounter{figure}{0}
-\renewcommand\thetable{S\arabic{table}}
-\setcounter{table}{0}
-\section{Supplementary Figures}
-
-\begin{figure}[h]%
-\centering
-% FIXME get the sizes right here and in the notebook where we're generating
-% the figure so we don't have to scale here.
-\includegraphics[width=\columnwidth]{figures/stdpopsim-time.pdf}
-\caption{Time taken to simulate quantitative traits with increasing
-sample size. For each sample size, we simulated an ARG under human-like
-parameters using the default HomSap demographic model in \texttt{stdpopsim}.
-Each point represents the mean time for 10 independent runs of \texttt{tstrait}
-for a particular ARG. The times reported are the total CPU
-time required to simulate a quantitative trait with 1000 causal sites,
-on an Intel(R) Core(TM) i9-11900H CPU and 16 GB of RAM.
-The trait model is a normal distribution with $\mu=0$,
-$\sigma^2=1$, $h^2=0.3$, and $\alpha=0$.
-}\label{fig:time}
-\end{figure}
 \end{document}
