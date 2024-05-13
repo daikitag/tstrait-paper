@@ -1,7 +1,7 @@
 %%
 %DIF LATEXDIFF DIFFERENCE FILE
-%DIF DEL paper.tex            Mon May 13 18:27:27 2024
-%DIF ADD original-paper.tex   Mon May 13 18:26:18 2024
+%DIF DEL original-paper.tex   Mon May 13 18:26:18 2024
+%DIF ADD paper.tex            Mon May 13 18:27:27 2024
 %% Copyright 2022 OXFORD UNIVERSITY PRESS
 %%
 %% This file is part of the 'oup-authoring-template Bundle'.
@@ -391,10 +391,9 @@ This noise is simulated from a normal distribution with mean zero
 and variance of $V_G(1-h^2)/{h^2}$,
 where $V_G$ is the variance of the individual genetic values
 and $h^2$ is the narrow-sense heritability provided as input by the user.
-\DIFdelbegin \DIFdel{Dominance and epistasis are straightforward extensions to this
-model, which we plan to include in future versions of }\texttt{\DIFdel{tstrait}}%DIFAUXCMD
-\DIFdel{.
-}\DIFdelend 
+\DIFaddbegin \DIFadd{Dominance and epistasis are straightforward extensions to this
+model, which we plan to include in future versions of }\texttt{\DIFadd{tstrait}}\DIFadd{.
+}\DIFaddend 
 
 \subsection{Interface}
 \texttt{Tstrait} is a Python library, building on the \texttt{tskit}
@@ -428,8 +427,8 @@ two Pandas dataframes~\citep{mckinney2010data}: one describing the simulated
 effect sizes and the other describing the genetic values,
 environmental noise and phenotypes for each individual.
 The simulation results can then be efficiently and conveniently
-processed using standard Python data science tools\DIFdelbegin \DIFdel{, or exported
-to (e.g.) CSV for broad compatibility}\DIFdelend .
+processed using standard Python data science tools\DIFaddbegin \DIFadd{, or exported
+to (e.g.) CSV for broad compatibility}\DIFaddend .
 
 As well as this convenient single-function interface,
 \texttt{tstrait} provides modular building blocks for power-users
@@ -527,26 +526,39 @@ EPSRC (research grant EP/X024881/1).
 
 %\clearpage
 
-\DIFaddbegin \renewcommand\thefigure{S\arabic{figure}}
-\setcounter{figure}{0}
-\renewcommand\thetable{S\arabic{table}}
-\setcounter{table}{0}
-\section{\DIFadd{Supplementary Figures}}
+ \DIFdelbegin %DIFDELCMD < \renewcommand\thefigure{S\arabic{figure}}
+%DIFDELCMD < \setcounter{figure}{0}
+%DIFDELCMD < \renewcommand\thetable{S\arabic{table}}
+%DIFDELCMD < \setcounter{table}{0}
+%DIFDELCMD < %%%
+\section{\DIFdel{Supplementary Figures}}
+%DIFAUXCMD
+\addtocounter{section}{-1}%DIFAUXCMD
+%DIFDELCMD < 
 
-\begin{figure}[h]%DIF > 
-\centering
-%DIF >  FIXME get the sizes right here and in the notebook where we're generating
-%DIF >  the figure so we don't have to scale here.
-\includegraphics[width=\columnwidth]{figures/stdpopsim-time.pdf}
-\caption{\DIFaddFL{Time taken to simulate quantitative traits with increasing
+%DIFDELCMD < \begin{figure}[h]%%%
+%DIF < 
+%DIFDELCMD < \centering
+%DIFDELCMD < %%%
+%DIF <  FIXME get the sizes right here and in the notebook where we're generating
+%DIF <  the figure so we don't have to scale here.
+%DIFDELCMD < \includegraphics[width=\columnwidth]{figures/stdpopsim-time.pdf}
+%DIFDELCMD < %%%
+%DIFDELCMD < \caption{%
+{%DIFAUXCMD
+\DIFdelFL{Time taken to simulate quantitative traits with increasing
 sample size. For each sample size, we simulated an ARG under human-like
-parameters using the default HomSap demographic model in }\texttt{\DIFaddFL{stdpopsim}}\DIFaddFL{.
-Each point represents the mean time for 10 independent runs of }\texttt{\DIFaddFL{tstrait}}
-\DIFaddFL{for a particular ARG. The times reported are the total CPU
+parameters using the default HomSap demographic model in }\texttt{\DIFdelFL{stdpopsim}}%DIFAUXCMD
+\DIFdelFL{.
+Each point represents the mean time for 10 independent runs of }\texttt{\DIFdelFL{tstrait}}
+%DIFAUXCMD
+\DIFdelFL{for a particular ARG. The times reported are the total CPU
 time required to simulate a quantitative trait with 1000 causal sites,
 on an Intel(R) Core(TM) i9-11900H CPU and 16 GB of RAM.
 The trait model is a normal distribution with $\mu=0$,
 $\sigma^2=1$, $h^2=0.3$, and $\alpha=0$.
-}}\label{fig:time}
-\end{figure}
- \DIFaddend\end{document}
+}}%DIFAUXCMD
+%DIFDELCMD < \label{fig:time}
+%DIFDELCMD < \end{figure}
+%DIFDELCMD <  %%%
+\DIFdelend\end{document}
